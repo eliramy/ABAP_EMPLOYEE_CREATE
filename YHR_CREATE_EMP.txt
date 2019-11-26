@@ -1,0 +1,64 @@
+*&---------------------------------------------------------------------*
+*& Report  YHR_CREATE_EMP
+*&---------------------------------------------------------------------*
+REPORT YHR_CREATE_EMP.
+
+DATA: gt_return  TYPE hrpad_return_tab,
+      gt_bapikey TYPE hrpad_bapipakey_tab,
+      gs_bapikey TYPE bapipakey.
+DATA: gt_prelp1 TYPE prelp_tab,
+      gs_prelp1 LIKE LINE OF gt_prelp1,
+      gt_prelp2 TYPE prelp_tab,
+      gs_prelp2 LIKE LINE OF gt_prelp2.
+DATA: gt_p0001 TYPE TABLE OF p0001,
+      gs_p0001 LIKE LINE OF gt_p0001,
+      gt_p0006 TYPE TABLE OF p0006,
+      gs_p0006 LIKE LINE OF gt_p0006,
+      gt_p0007 TYPE TABLE OF p0007,
+      gs_p0007 LIKE LINE OF gt_p0007.
+
+
+gs_p0001-pernr = ''.
+gs_p0001-begda = sy-datum.
+gs_p0001-endda = '99991231'.
+gs_p0001-infty = '0001'.
+gs_p0001-werks = '1216'.
+gs_p0001-btrtl = '0001'.
+gs_p0001-persg = 'A'.
+gs_p0001-bukrs = '1210'.
+gs_p0001-persk = 'AK'.
+*gs_p0001-geber = 'B10'.
+*gs_p0001-gsber = '1107'.
+*gs_p0001-zzwbs = ''.
+*gs_p0001-zzpct = '0039'.
+gs_p0001-abkrs = '01'.
+
+APPEND gs_p0001 TO gt_p0001.
+CALL METHOD cl_hr_pnnnn_type_cast=>pnnnn_to_prelp_tab
+  EXPORTING
+    pnnnn_tab = gt_p0001
+  IMPORTING
+    prelp_tab = gt_prelp1.
+
+DATA: lv_pernr TYPE pernr_d,
+      gv_ok    TYPE boole_d.
+
+CALL FUNCTION 'HR_PAD_HIRE_EMPLOYEE'
+  EXPORTING
+    employeenumber  = lv_pernr "BLANK
+    hiringdate      = gs_p0001-begda
+    actiontype      = '01'
+    reasonforaction = '01'
+    pnnnn_tab       = gt_prelp1
+    nocommit        = ''
+  IMPORTING
+    return_tab      = gt_return
+    bapipakey_tab   = gt_bapikey
+    is_ok           = gv_ok.
+
+IF gt_bapikey IS NOT INITIAL.
+  READ TABLE gt_bapikey INTO gs_bapikey INDEX 1.
+  lv_pernr = gs_bapikey-employeeno.
+ENDIF.
+
+WRITE:/ lv_pernr.
