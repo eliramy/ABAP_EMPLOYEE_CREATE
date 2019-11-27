@@ -6,16 +6,10 @@ REPORT YHR_CREATE_EMP.
 DATA: gt_return  TYPE hrpad_return_tab,
       gt_bapikey TYPE hrpad_bapipakey_tab,
       gs_bapikey TYPE bapipakey.
+      
 DATA: gt_prelp1 TYPE prelp_tab,
-      gs_prelp1 LIKE LINE OF gt_prelp1,
-      gt_prelp2 TYPE prelp_tab,
-      gs_prelp2 LIKE LINE OF gt_prelp2.
-DATA: gt_p0001 TYPE TABLE OF p0001,
-      gs_p0001 LIKE LINE OF gt_p0001,
-      gt_p0006 TYPE TABLE OF p0006,
-      gs_p0006 LIKE LINE OF gt_p0006,
-      gt_p0007 TYPE TABLE OF p0007,
-      gs_p0007 LIKE LINE OF gt_p0007.
+      gt_p0001 TYPE TABLE OF p0001,
+      gs_p0001 LIKE LINE OF gt_p0001.
 
 
 gs_p0001-pernr = ''.
