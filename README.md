@@ -2,8 +2,7 @@
 SAP/ABAP - Create Employee infotypes 
 
 
-If you want afterward to insert more infotype with FM after create the employee:
-
+If you want afterward to insert more infotype with FM: HR_INFOTYPE_OPERATION after create the employee
 i used to add this enhancement :
 
 * Don't initial the Buffer
