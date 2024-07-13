@@ -1,5 +1,6 @@
 # ABAP_EMPLOYEE_CREATE
-SAP/ABAP - Create Employee infotypes 
+SAP/ABAP - 
+Create Employee infotypes suitable to decoupled infotypes.
 
 
 If you want afterward to insert more infotype with FM: HR_INFOTYPE_OPERATION after create the employee
